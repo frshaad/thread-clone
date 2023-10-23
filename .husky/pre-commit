@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+pnpm format
+pnpm check-format
+pnpm check-types
+pnpm lint-fix
+pnpm check-lint
