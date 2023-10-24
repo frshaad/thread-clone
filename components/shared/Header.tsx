@@ -1,6 +1,8 @@
-import { OrganizationSwitcher, SignedIn, SignOutButton } from "@clerk/nextjs";
+import { OrganizationSwitcher } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+
+import LogOutButton from "./LogOutButton";
 
 export default function Header() {
   return (
@@ -12,18 +14,7 @@ export default function Header() {
 
       <div className="flex items-center gap-1">
         <div className="block md:hidden">
-          <SignedIn>
-            <SignOutButton>
-              <button className="flex">
-                <Image
-                  alt="log out"
-                  src="/assets/logout.svg"
-                  width={24}
-                  height={24}
-                />
-              </button>
-            </SignOutButton>
-          </SignedIn>
+          <LogOutButton />
         </div>
         <OrganizationSwitcher
           appearance={{
