@@ -4,7 +4,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import { Footer, Header, LeftSidebar, RightSidebar } from "@/components/shared";
+import {
+  BottomBar,
+  Header,
+  LeftSidebar,
+  RightSidebar,
+} from "@/components/shared";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +35,7 @@ export default function RootLayout({
             </section>
             <RightSidebar />
           </main>
-          <Footer />
+          <BottomBar />
         </body>
       </html>
     </ClerkProvider>

@@ -181,6 +181,9 @@ const config: Config = {
         "gray-1": "#697C89",
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
+      screens: {
+        xs: "400px",
+      },
     },
   },
   plugins: [],
