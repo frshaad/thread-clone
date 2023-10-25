@@ -1,10 +1,11 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   theme: {
     container: {
@@ -171,20 +172,6 @@ const config: Config = {
       ],
     },
     extend: {
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
       colors: {
         "primary-500": "#877EFF",
         "secondary-500": "#FFB620",
@@ -202,11 +189,28 @@ const config: Config = {
         "gray-1": "#697C89",
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
+      boxShadow: {
+        "count-badge": "0px 0px 6px 2px rgba(219, 188, 159, 0.30)",
+        "groups-sidebar": "-30px 0px 60px 0px rgba(28, 28, 31, 0.50)",
+      },
       screens: {
         xs: "400px",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
 };
-export default config;
