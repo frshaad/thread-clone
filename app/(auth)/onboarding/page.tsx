@@ -25,7 +25,7 @@ export default async function Onboarding() {
       </p>
 
       <section className="mt-9 bg-dark-2 p-10">
-        <AccountProfile userData={userData} buttonTitle="Continue" />
+        <AccountProfile user={userData} buttonTitle="Continue" />
       </section>
     </main>
   );

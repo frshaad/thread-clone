@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { userFormSchema } from "@/lib/validations/userValidation";
 
 type Props = {
-  userData: UserDataType;
+  user: UserDataType;
   buttonTitle: string;
 };
 
@@ -27,14 +27,14 @@ type FormFieldProps = {
   fieldName: "name" | "username" | "bio";
 };
 
-export default function AccountProfile({ userData, buttonTitle }: Props) {
+export default function AccountProfile({ user, buttonTitle }: Props) {
   const form = useForm<z.infer<typeof userFormSchema>>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {
-      name: "",
-      username: "",
-      profile_photo: "",
-      bio: "",
+      name: user?.name || "",
+      username: user?.username || "",
+      profile_photo: user?.imageUrl || "",
+      bio: user?.bio || "",
     },
   });
 
@@ -47,7 +47,7 @@ export default function AccountProfile({ userData, buttonTitle }: Props) {
           <FormLabel className="text-base-semibold capitalize text-light-2">
             {fieldName}
           </FormLabel>
-          <FormControl className="flex-1 text-base-semibold text-gray-200">
+          <FormControl>
             {fieldName === "bio" ? (
               <Textarea
                 rows={10}
