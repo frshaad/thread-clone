@@ -24,7 +24,7 @@ export default function NavLinks({ variant }: Props) {
             "justify-start gap-4 rounded-lg p-4": variant === "sidebar",
             "flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5":
               variant === "bottombar",
-            "bg-primary-500": pathname === link.route,
+            "bg-primary-500 hover:bg-primary-500": pathname === link.route,
           })}
         >
           <Image alt={link.label} src={link.imgURL} width={24} height={24} />
