@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 
 export const userFormSchema = z.object({
   profile_photo: z.string().url().min(1, { message: "Set a profile picture" }),
@@ -14,3 +14,5 @@ export const userFormSchema = z.object({
     .string()
     .max(1000, { message: "Must be a maximum of 1000 characters" }),
 });
+
+export type TUserForm = z.infer<typeof userFormSchema>;

@@ -1,20 +1,28 @@
-// @ts-nocheck
-
 import { currentUser } from "@clerk/nextjs";
 
 import AccountProfile from "@/components/forms/AccountProfile";
+import { TUserInfoFromDb, UserData } from "@/types/userType";
 
 export default async function Onboarding() {
   const user = await currentUser();
-  const userInfo = {};
+  if (!user) return null;
 
-  const userData: UserDataType = {
-    id: user?.id,
-    objectId: userInfo?._id,
-    username: userInfo?.username || user?.username,
-    name: userInfo?.name || user?.firstName,
-    bio: userInfo?.bio || "",
-    imageUrl: userInfo?.imageUrl || user?.imageUrl,
+  // fetch user data from db
+  const userInfoFromDb: TUserInfoFromDb = {
+    _id: "",
+    bio: "",
+    imageUrl: "",
+    name: "",
+    username: "",
+  };
+
+  const userData: UserData = {
+    id: user.id,
+    objectId: userInfoFromDb?._id,
+    username: userInfoFromDb?.username || user.username,
+    name: userInfoFromDb?.name || user.firstName,
+    bio: userInfoFromDb?.bio || "",
+    imageUrl: userInfoFromDb?.imageUrl || user.imageUrl,
   };
 
   return (
