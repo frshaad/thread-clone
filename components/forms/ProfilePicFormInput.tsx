@@ -1,10 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-import { FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { Input } from "../ui/input";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 type Props = {
   form: UseFormReturn<
@@ -19,15 +25,29 @@ type Props = {
   >;
 };
 
-const handleImage = (
-  e: React.ChangeEvent<HTMLInputElement>,
-  onChange: (value: string) => void,
-) => {
-  e.preventDefault();
-  const fileReader = new FileReader();
-};
-
 export default function ProfilePicFormInput({ form }: Props) {
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleImage = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onFieldChange: (value: string) => void,
+  ) => {
+    e.preventDefault();
+    const fileReader = new FileReader();
+
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setFiles(Array.from(e.target.files));
+      if (!file.type.includes("image")) return;
+      fileReader.onload = async (event) => {
+        const imageDataUrl = event.target?.result?.toString() || "";
+        onFieldChange(imageDataUrl);
+      };
+``
+      fileReader.readAsDataURL(file);
+    }
+  };
+
   return (
     <FormField
       control={form.control}
