@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import {
@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 type Props = {
+  setFiles: Dispatch<SetStateAction<File[]>>;
   form: UseFormReturn<
     {
       name: string;
@@ -25,9 +26,7 @@ type Props = {
   >;
 };
 
-export default function ProfilePicFormInput({ form }: Props) {
-  const [files, setFiles] = useState<File[]>([]);
-
+export default function ProfilePicFormInput({ form, setFiles }: Props) {
   const handleImage = (
     e: React.ChangeEvent<HTMLInputElement>,
     onFieldChange: (value: string) => void,
@@ -43,7 +42,7 @@ export default function ProfilePicFormInput({ form }: Props) {
         const imageDataUrl = event.target?.result?.toString() || "";
         onFieldChange(imageDataUrl);
       };
-``
+      ``;
       fileReader.readAsDataURL(file);
     }
   };

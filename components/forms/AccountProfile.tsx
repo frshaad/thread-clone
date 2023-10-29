@@ -1,10 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useUploadThing } from "@/hooks/useUploadThing";
+import { isBase64Image } from "@/lib/utils";
 import { UserData } from "@/types/userType";
 import { TUserForm, userFormSchema } from "@/types/userValidation";
 
@@ -17,6 +20,9 @@ type Props = {
 };
 
 export default function AccountProfile({ user, buttonTitle }: Props) {
+  const [files, setFiles] = useState<File[]>([]);
+  const { startUpload } = useUploadThing("media");
+
   const form = useForm<TUserForm>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {
@@ -27,8 +33,18 @@ export default function AccountProfile({ user, buttonTitle }: Props) {
     },
   });
 
-  const onSubmit = (values: TUserForm) => {
-    console.log("Form data:", values);
+  const onSubmit = async (values: TUserForm) => {
+    const blob = values.profile_photo;
+    const hasImageChanged = isBase64Image(blob);
+    if (hasImageChanged) {
+      const imgResponse = await startUpload(files);
+
+      if (imgResponse && imgResponse[0].url) {
+        values.profile_photo = imgResponse[0].url;
+      }
+    }
+
+    // TODO: update user profile
   };
 
   return (
@@ -37,7 +53,7 @@ export default function AccountProfile({ user, buttonTitle }: Props) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col justify-start gap-10"
       >
-        <ProfilePicFormInput form={form} />
+        <ProfilePicFormInput form={form} setFiles={setFiles} />
         <CustomFormField fieldName="name" form={form} />
         <CustomFormField fieldName="username" form={form} />
         <CustomFormField fieldName="bio" form={form} />
